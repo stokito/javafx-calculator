@@ -2,10 +2,15 @@ package com.example.javafx.calculator;
 
 public class Calculator {
     private final Display display;
+
     private boolean lastButtonWasDigit;
 
     public Calculator(Display display) {
         this.display = display;
+    }
+
+    public boolean isLastButtonWasDigit() {
+        return lastButtonWasDigit;
     }
 
     public double getNumber() {
