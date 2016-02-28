@@ -50,6 +50,8 @@ public class Calculator {
         setNumber(0);
         lastButtonWasDigit = false;
         operator  = "+";
+        a = 0D;
+        b = 0D;
     }
 
     public void negate() {
@@ -80,24 +82,33 @@ public class Calculator {
 
     public void operator(String operator) {
         if (lastButtonWasDigit){
-            if (this.operator.equals("+")) {
-                setNumber(a + b);
-            } else if (this.operator.equals("-")) {
-                setNumber(a - b);
-            } else if (this.operator.equals("*")) {
-                setNumber(a * b);
-            } else if (this.operator.equals("/")) {
-                setNumber(a / b);
-            } else {
-                throw new IllegalStateException("Unknown operator " + this.operator);
-            }
+            b = getNumber();
+            calc();
         }
         this.operator = operator;
-        lastButtonWasDigit = false;
     }
 
     public void enter() {
-        //TODO
+        if (lastButtonWasDigit) {
+            b = getNumber();
+        }
+        calc();
+    }
+
+    private void calc() {
+        if (this.operator.equals("+")) {
+            setNumber(a + b);
+        } else if (this.operator.equals("-")) {
+            setNumber(a - b);
+        } else if (this.operator.equals("*")) {
+            setNumber(a * b);
+        } else if (this.operator.equals("/")) {
+            setNumber(a / b);
+        } else {
+            throw new IllegalStateException("Unknown operator " + this.operator);
+        }
+        a = getNumber();
+        lastButtonWasDigit = false;
     }
 
 }

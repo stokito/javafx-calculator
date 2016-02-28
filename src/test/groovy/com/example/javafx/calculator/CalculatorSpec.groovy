@@ -1,7 +1,6 @@
 package com.example.javafx.calculator
 
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class CalculatorSpec extends Specification {
     private Calculator calc = new Calculator(new DisplayStub())
@@ -129,17 +128,23 @@ class CalculatorSpec extends Specification {
         assertState(2D, 0D, 0D, "-", false)
     }
 
-    //TODO make this test data driven as test for operator
     void enter() {
+        given:
         calc.digit("2")
         calc.operator("+")
         calc.digit("1")
+        when:
         calc.enter()
-        assertState(3D, 2D, 1D, "+", false)
+        then:
+        assertState(3D, 3D, 1D, "+", false)
+        when:
         calc.enter()
-        assertState(4D, 3D, 1D, "+", false)
+        then:
+        assertState(4D, 4D, 1D, "+", false)
+        when:
         calc.enter()
-        assertState(5D, 4D, 1D, "+", false)
+        then:
+        assertState(5D, 5D, 1D, "+", false)
     }
 
     private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
