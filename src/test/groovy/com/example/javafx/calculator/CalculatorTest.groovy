@@ -1,185 +1,183 @@
-package com.example.javafx.calculator;
+package com.example.javafx.calculator
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.Before
+import org.junit.Test
 
 class CalculatorTest {
-    private Calculator calc;
-    private Display display = new DisplayStub();
+    private Calculator calc
+    private Display display = new DisplayStub()
 
     @Before
-    void setUp()  {
-        calc = new Calculator(display);
+    void setUp() {
+        calc = new Calculator(display)
     }
 
     @Test
-    void getNumber()  {
+    void getNumber() {
         //given
-        display.setDisplayNumber("0");
+        display.setDisplayNumber("0")
         //when
-        double number = calc.getNumber();
+        double number = calc.getNumber()
         //then
-        assertEquals(0D, number, 0.000000001D);
+        assert number == 0D
     }
 
     @Test
-    void setNumber()  {
+    void setNumber() {
         // given
-        double number = 42D;
+        double number = 42D
         // when
-        calc.setNumber(number);
+        calc.setNumber(number)
         // then
-        assertEquals("42.0", display.getDisplayNumber());
+        assert display.getDisplayNumber() == "42.0"
     }
 
     @Test
-    void digit()  {
-        assertEquals("0", display.getDisplayNumber());
-        calc.digit("1");
-        assertEquals("1", display.getDisplayNumber());
-        calc.digit("2");
-        assertEquals("12", display.getDisplayNumber());
+    void digit() {
+        assert display.getDisplayNumber() == "0"
+        calc.digit("1")
+        assert display.getDisplayNumber() == "1"
+        calc.digit("2")
+        assert display.getDisplayNumber() == "12"
     }
 
     @Test
-    void clear()  {
+    void clear() {
         // given
-        calc.digit("1");
-        calc.operator("+");
-        calc.digit("3");
-        calc.enter();
+        calc.digit("1")
+        calc.operator("+")
+        calc.digit("3")
+        calc.enter()
         // when
-        calc.clear();
+        calc.clear()
         // then
-        assertFalse(calc.isLastButtonWasDigit());
-        assertEquals(0D, calc.getNumber(), 0.000001D);
-        assertEquals(0D, calc.getA(), 0.000001D);
-        assertEquals(0D, calc.getB(), 0.000001D);
-        assertEquals("+", calc.getOperator());
+        assert !calc.isLastButtonWasDigit()
+        assert calc.getNumber() == 0D
+        assert calc.getA() == 0D
+        assert calc.getB() == 0D
+        assert calc.getOperator() == "+"
     }
 
     @Test
-    void negate()  {
+    void negate() {
         // given
-        calc.digit("1");
+        calc.digit("1")
         // when
-        calc.negate();
+        calc.negate()
         // then
-        assertEquals(-1D, calc.getNumber(), 0.00000001D);
+        assert calc.getNumber() == -1D
     }
 
     @Test
-    void sqrt()  {
+    void sqrt() {
         // given
-        calc.digit("4");
+        calc.digit("4")
         // when
-        calc.sqrt();
+        calc.sqrt()
         // then
-        assertEquals(2D, calc.getNumber(), 0.00000001D);
+        assert calc.getNumber() == 2D
     }
 
     @Test
-    void comma()  {
+    void comma() {
         // given
-        assertEquals("0", display.getDisplayNumber());
+        assert display.getDisplayNumber() == "0"
         //when
-        calc.comma();
+        calc.comma()
         // then
-        assertEquals("0,",display.getDisplayNumber());
+        assert display.getDisplayNumber() == "0,"
     }
 
     @Test
-    void commaMayBeUsedOnlyOnce()  {
+    void commaMayBeUsedOnlyOnce() {
         // given
-        display.setDisplayNumber("0,3");
+        display.setDisplayNumber("0,3")
         //when
-        calc.comma();
+        calc.comma()
         // then
-        assertEquals("0,3",display.getDisplayNumber());
+        assert display.getDisplayNumber() == "0,3"
     }
 
     @Test
-    void fractionOne()  {
+    void fractionOne() {
         //given
-        calc.digit("4");
+        calc.digit("4")
         // when
-        calc.fractionOne();
+        calc.fractionOne()
         // then
-        assertEquals(0.25D, calc.getNumber(), 0.0000001D);
+        assert calc.getNumber() == 0.25D
     }
 
     @Test
-    void percent()  {
+    void percent() {
         // when
-        calc.digit("6");
-        calc.operator("+");
-        calc.digit("50");
-        calc.percent();
+        calc.digit("6")
+        calc.operator("+")
+        calc.digit("50")
+        calc.percent()
         // then
-        assertEquals(9D, calc.getNumber(), 0.00000001D);
+        assert calc.getNumber() == 9D
     }
 
 
     @Test
-    void operator()  {
-        calc.digit("2");
-        assertState(2D, 0D, 0D, "+", true);
-        calc.operator("+");
-        assertState(2D, 2D, 0D, "+", false);
-        calc.digit("3");
-        assertState(3D, 2D, 0D, "+", true);
-        calc.operator("+");
-        assertState(5D, 2D, 3D, "+", false);
-        calc.digit("3");
-        assertState(3D, 5D, 3D, "+", true);
-        calc.operator("-");
-        assertState(8D, 5D, 3D, "-", false);
-        calc.digit("1");
-        assertState(1D, 5D, 3D, "-", true);
-        calc.enter();
-        assertState(7D, 8D, 1D, "-", false);
+    void operator() {
+        calc.digit("2")
+        assertState(2D, 0D, 0D, "+", true)
+        calc.operator("+")
+        assertState(2D, 2D, 0D, "+", false)
+        calc.digit("3")
+        assertState(3D, 2D, 0D, "+", true)
+        calc.operator("+")
+        assertState(5D, 2D, 3D, "+", false)
+        calc.digit("3")
+        assertState(3D, 5D, 3D, "+", true)
+        calc.operator("-")
+        assertState(8D, 5D, 3D, "-", false)
+        calc.digit("1")
+        assertState(1D, 5D, 3D, "-", true)
+        calc.enter()
+        assertState(7D, 8D, 1D, "-", false)
     }
 
     @Test
-    void operatorSetLastButtonWasDigitFalse()  {
-        calc.digit("2");
-        calc.operator("+");
-        assertFalse(calc.isLastButtonWasDigit());
+    void operatorSetLastButtonWasDigitFalse() {
+        calc.digit("2")
+        calc.operator("+")
+        assert !calc.isLastButtonWasDigit()
     }
 
     @Test
-    void operatorWasAfterOperator()  {
-        calc.digit("2");
-        calc.operator("+");
-        assertState(2D, 0D, 0D, "+", false);
-        calc.operator("-");
-        assertState(2D, 0D, 0D, "-", false);
+    void operatorWasAfterOperator() {
+        calc.digit("2")
+        calc.operator("+")
+        assertState(2D, 0D, 0D, "+", false)
+        calc.operator("-")
+        assertState(2D, 0D, 0D, "-", false)
     }
 
     @Test
-    void enter()  {
-        calc.digit("2");
-        calc.operator("+");
-        calc.digit("1");
-        calc.enter();
-        assertState(3D, 2D, 1D, "+", false);
-        calc.enter();
-        assertState(4D, 3D, 1D, "+", false);
-        calc.enter();
-        assertState(5D, 4D, 1D, "+", false);
+    void enter() {
+        calc.digit("2")
+        calc.operator("+")
+        calc.digit("1")
+        calc.enter()
+        assertState(3D, 2D, 1D, "+", false)
+        calc.enter()
+        assertState(4D, 3D, 1D, "+", false)
+        calc.enter()
+        assertState(5D, 4D, 1D, "+", false)
     }
 
     private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
-        assertEquals(a, calc.getA(), 0.0000001D);
-        assertEquals(b, calc.getB(), 0.0000001D);
-        assertEquals(number, calc.getNumber(), 0.0000001D);
-        assertEquals(operator, calc.getOperator());
-        assertEquals(lastButtonWasDigit, calc.isLastButtonWasDigit());
+        assert calc.getA() == a
+        assert calc.getB() == b
+        assert calc.getNumber() == number
+        assert calc.getOperator() == operator
+        assert calc.isLastButtonWasDigit() == lastButtonWasDigit
     }
 
     private static class DisplayStub implements Display {
-        String displayNumber = "0";
+        String displayNumber = "0"
     }
 }
