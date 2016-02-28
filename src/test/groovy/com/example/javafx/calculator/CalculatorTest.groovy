@@ -5,17 +5,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CalculatorTest {
+class CalculatorTest {
     private Calculator calc;
     private Display display = new DisplayStub();
 
     @Before
-    public void setUp() throws Exception {
+    void setUp()  {
         calc = new Calculator(display);
     }
 
     @Test
-    public void getNumber() throws Exception {
+    void getNumber()  {
         //given
         display.setDisplayNumber("0");
         //when
@@ -25,7 +25,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void setNumber() throws Exception {
+    void setNumber()  {
         // given
         double number = 42D;
         // when
@@ -35,7 +35,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void digit() throws Exception {
+    void digit()  {
         assertEquals("0", display.getDisplayNumber());
         calc.digit("1");
         assertEquals("1", display.getDisplayNumber());
@@ -44,7 +44,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void clear() throws Exception {
+    void clear()  {
         // given
         calc.digit("1");
         calc.operator("+");
@@ -61,7 +61,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void negate() throws Exception {
+    void negate()  {
         // given
         calc.digit("1");
         // when
@@ -71,7 +71,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void sqrt() throws Exception {
+    void sqrt()  {
         // given
         calc.digit("4");
         // when
@@ -81,7 +81,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void comma() throws Exception {
+    void comma()  {
         // given
         assertEquals("0", display.getDisplayNumber());
         //when
@@ -91,7 +91,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void commaMayBeUsedOnlyOnce() throws Exception {
+    void commaMayBeUsedOnlyOnce()  {
         // given
         display.setDisplayNumber("0,3");
         //when
@@ -101,7 +101,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void fractionOne() throws Exception {
+    void fractionOne()  {
         //given
         calc.digit("4");
         // when
@@ -111,7 +111,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void percent() throws Exception {
+    void percent()  {
         // when
         calc.digit("6");
         calc.operator("+");
@@ -123,7 +123,7 @@ public class CalculatorTest {
 
 
     @Test
-    public void operator() throws Exception {
+    void operator()  {
         calc.digit("2");
         assertState(2D, 0D, 0D, "+", true);
         calc.operator("+");
@@ -143,14 +143,14 @@ public class CalculatorTest {
     }
 
     @Test
-    public void operatorSetLastButtonWasDigitFalse() throws Exception {
+    void operatorSetLastButtonWasDigitFalse()  {
         calc.digit("2");
         calc.operator("+");
         assertFalse(calc.isLastButtonWasDigit());
     }
 
     @Test
-    public void operatorWasAfterOperator() throws Exception {
+    void operatorWasAfterOperator()  {
         calc.digit("2");
         calc.operator("+");
         assertState(2D, 0D, 0D, "+", false);
@@ -159,7 +159,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void enter() throws Exception {
+    void enter()  {
         calc.digit("2");
         calc.operator("+");
         calc.digit("1");
@@ -180,15 +180,6 @@ public class CalculatorTest {
     }
 
     private static class DisplayStub implements Display {
-        private String displayNumber = "0";
-        @Override
-        public String getDisplayNumber() {
-            return displayNumber;
-        }
-
-        @Override
-        public void setDisplayNumber(String displayNumber) {
-            this.displayNumber = displayNumber;
-        }
+        String displayNumber = "0";
     }
 }
