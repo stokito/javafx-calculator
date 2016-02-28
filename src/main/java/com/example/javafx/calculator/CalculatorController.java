@@ -5,26 +5,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CalculatorController {
+public class CalculatorController implements Display {
     @FXML
     private TextField display;
-    private boolean lastButtonWasDigit;
 
+    private Calculator calculator;
 
+    public CalculatorController() {
+        calculator = new Calculator(this);
+    }
+
+    @Override
     public String getDisplayNumber() {
         return display.getText();
     }
 
+    @Override
     public void setDisplayNumber(String displayNumber) {
         display.setText(displayNumber);
-    }
-
-    public double getNumber() {
-        return Double.parseDouble(getDisplayNumber());
-    }
-
-    public void setNumber(double number) {
-        setDisplayNumber(String.valueOf(number));
     }
 
     public void buttonBackSpaceClick(ActionEvent actionEvent) {
@@ -34,33 +32,23 @@ public class CalculatorController {
     public void buttonDigitClick(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         String digit = button.getText();
-        if (lastButtonWasDigit) {
-            setDisplayNumber(getDisplayNumber() + digit);
-        } else {
-            setDisplayNumber(digit);
-        }
-        lastButtonWasDigit = true;
+        calculator.digit(digit);
     }
 
     public void buttonClearClick(ActionEvent actionEvent) {
-        setNumber(0);
-        lastButtonWasDigit = false;
+        calculator.clear();
     }
 
     public void buttonCommaClick(ActionEvent actionEvent) {
-        if (!getDisplayNumber().contains(",")) {
-            setDisplayNumber(getDisplayNumber() + ",");
-        }
-        lastButtonWasDigit = true;
+        calculator.comma();
     }
 
+
     public void buttonNegateClick(ActionEvent actionEvent) {
-        double newNumber = getNumber() * -1;
-        setNumber(newNumber);
+        calculator.negate();
     }
 
     public void buttonSqrtClick(ActionEvent actionEvent) {
-        double newNumber = Math.sqrt(getNumber());
-        setNumber(newNumber);
+        calculator.sqrt();
     }
 }
