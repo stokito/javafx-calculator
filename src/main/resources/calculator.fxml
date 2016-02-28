@@ -11,32 +11,32 @@
 <GridPane alignment="CENTER" gridLinesVisible="false" hgap="10.0" minHeight="275.0" minWidth="300.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.example.javafx.calculator.CalculatorController">
   <children>
     <TextField fx:id="display" maxHeight="Infinity" maxWidth="Infinity" prefWidth="200.0" text="0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="0" />
-    <Button fx:id="backSpace" maxHeight="Infinity" maxWidth="Infinity" text="⌫" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Button fx:id="backSpace" maxHeight="Infinity" maxWidth="Infinity" text="⌫" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#buttonBackSpaceClick" />
     <Button fx:id="clearEntered" maxHeight="Infinity" maxWidth="Infinity" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <Button fx:id="clear" maxHeight="Infinity" maxWidth="Infinity" text="C" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-    <Button fx:id="buttonNegate" maxHeight="Infinity" maxWidth="Infinity" text="±" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-    <Button fx:id="buttonSqrt" maxHeight="Infinity" maxWidth="Infinity" text="√" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-    <Button fx:id="button7" maxHeight="Infinity" maxWidth="Infinity" text="7" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <Button fx:id="button8" maxHeight="Infinity" maxWidth="Infinity" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <Button fx:id="button9" maxHeight="Infinity" maxWidth="Infinity" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <Button fx:id="clear" maxHeight="Infinity" maxWidth="Infinity" text="C" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#buttonClearClick" />
+    <Button fx:id="buttonNegate" maxHeight="Infinity" maxWidth="Infinity" text="±" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#buttonNegateClick" />
+    <Button fx:id="buttonSqrt" maxHeight="Infinity" maxWidth="Infinity" text="√" GridPane.columnIndex="4" GridPane.rowIndex="1" onAction="#buttonSqrtClick" />
+    <Button fx:id="button7" maxHeight="Infinity" maxWidth="Infinity" text="7" GridPane.columnIndex="0" GridPane.rowIndex="2" onAction="#buttonDigitClick" />
+    <Button fx:id="button8" maxHeight="Infinity" maxWidth="Infinity" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#buttonDigitClick" />
+    <Button fx:id="button9" maxHeight="Infinity" maxWidth="Infinity" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" onAction="#buttonDigitClick" />
     <Button fx:id="buttonDivide" maxHeight="Infinity" maxWidth="Infinity" text="/" GridPane.columnIndex="3" GridPane.rowIndex="2" />
     <Button fx:id="buttonPercent" maxHeight="Infinity" maxWidth="Infinity" text="\%" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-    <Button fx:id="button4" maxHeight="Infinity" maxWidth="Infinity" text="4" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-    <Button fx:id="button5" maxHeight="Infinity" maxWidth="Infinity" text="5" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-    <Button fx:id="button6" maxHeight="Infinity" maxWidth="Infinity" text="6" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+    <Button fx:id="button4" maxHeight="Infinity" maxWidth="Infinity" text="4" GridPane.columnIndex="0" GridPane.rowIndex="3" onAction="#buttonDigitClick" />
+    <Button fx:id="button5" maxHeight="Infinity" maxWidth="Infinity" text="5" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#buttonDigitClick" />
+    <Button fx:id="button6" maxHeight="Infinity" maxWidth="Infinity" text="6" GridPane.columnIndex="2" GridPane.rowIndex="3" onAction="#buttonDigitClick" />
     <Button fx:id="buttonMultiply" maxHeight="Infinity" maxWidth="Infinity" text="*" GridPane.columnIndex="3" GridPane.rowIndex="3" />
     <Button fx:id="buttonFractionOne" maxHeight="Infinity" maxWidth="Infinity" text="⅟" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-    <Button fx:id="button1" maxHeight="Infinity" maxWidth="Infinity" text="1" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-    <Button fx:id="button2" maxHeight="Infinity" maxWidth="Infinity" text="2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-    <Button fx:id="button3" maxHeight="Infinity" maxWidth="Infinity" text="3" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+    <Button fx:id="button1" maxHeight="Infinity" maxWidth="Infinity" text="1" GridPane.columnIndex="0" GridPane.rowIndex="4" onAction="#buttonDigitClick" />
+    <Button fx:id="button2" maxHeight="Infinity" maxWidth="Infinity" text="2" GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#buttonDigitClick" />
+    <Button fx:id="button3" maxHeight="Infinity" maxWidth="Infinity" text="3" GridPane.columnIndex="2" GridPane.rowIndex="4" onAction="#buttonDigitClick" />
     <Button fx:id="buttonMinus" maxHeight="Infinity" maxWidth="Infinity" text="-" GridPane.columnIndex="3" GridPane.rowIndex="4" />
     <Button fx:id="buttonEnter" maxHeight="Infinity" maxWidth="Infinity" text="=" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.rowSpan="2" />
-    <Button fx:id="button0" maxHeight="Infinity" maxWidth="Infinity" text="0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-    <Button fx:id="buttonComma" maxHeight="Infinity" maxWidth="Infinity" text="," GridPane.columnIndex="2" GridPane.rowIndex="5" />
+    <Button fx:id="button0" maxHeight="Infinity" maxWidth="Infinity" text="0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5" onAction="#buttonDigitClick" />
+    <Button fx:id="buttonComma" maxHeight="Infinity" maxWidth="Infinity" text="," GridPane.columnIndex="2" GridPane.rowIndex="5" onAction="#buttonCommaClick"/>
     <Button fx:id="buttonPlus" maxHeight="Infinity" maxWidth="Infinity" text="+" GridPane.columnIndex="3" GridPane.rowIndex="5" />
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="40" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="40"/>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="40"/>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="40"/>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" prefWidth="40"/>
