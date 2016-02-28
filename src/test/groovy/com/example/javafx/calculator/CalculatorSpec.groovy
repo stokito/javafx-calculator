@@ -3,7 +3,7 @@ package com.example.javafx.calculator
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class CalculatorTest extends Specification {
+class CalculatorSpec extends Specification {
     private Calculator calc
     private Display display = new DisplayStub()
 
