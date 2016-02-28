@@ -4,13 +4,29 @@ public class Calculator {
     private final Display display;
 
     private boolean lastButtonWasDigit;
+    private String operator = "+";
+
+    private double a;
+    private double b;
 
     public Calculator(Display display) {
         this.display = display;
     }
 
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
     public boolean isLastButtonWasDigit() {
         return lastButtonWasDigit;
+    }
+
+    public String getOperator() {
+        return operator;
     }
 
     public double getNumber() {
@@ -33,6 +49,7 @@ public class Calculator {
     public void clear() {
         setNumber(0);
         lastButtonWasDigit = false;
+        operator  = "+";
     }
 
     public void negate() {
@@ -52,4 +69,35 @@ public class Calculator {
         }
         lastButtonWasDigit = true;
     }
+
+    public void fractionOne() {
+        //TODO to implement number = 1 / number
+    }
+
+    public void percent() {
+        //TODO implement me
+    }
+
+    public void operator(String operator) {
+        if (lastButtonWasDigit){
+            if (this.operator.equals("+")) {
+                setNumber(a + b);
+            } else if (this.operator.equals("-")) {
+                setNumber(a - b);
+            } else if (this.operator.equals("*")) {
+                setNumber(a * b);
+            } else if (this.operator.equals("/")) {
+                setNumber(a / b);
+            } else {
+                throw new IllegalStateException("Unknown operator " + this.operator);
+            }
+        }
+        this.operator = operator;
+        lastButtonWasDigit = false;
+    }
+
+    public void enter() {
+        //TODO
+    }
+
 }

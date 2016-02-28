@@ -9,10 +9,10 @@ public class CalculatorController implements Display {
     @FXML
     private TextField display;
 
-    private Calculator calculator;
+    private Calculator calc;
 
     public CalculatorController() {
-        calculator = new Calculator(this);
+        calc = new Calculator(this);
     }
 
     @Override
@@ -32,23 +32,41 @@ public class CalculatorController implements Display {
     public void buttonDigitClick(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         String digit = button.getText();
-        calculator.digit(digit);
+        calc.digit(digit);
     }
 
     public void buttonClearClick(ActionEvent actionEvent) {
-        calculator.clear();
+        calc.clear();
     }
 
     public void buttonCommaClick(ActionEvent actionEvent) {
-        calculator.comma();
+        calc.comma();
     }
 
 
     public void buttonNegateClick(ActionEvent actionEvent) {
-        calculator.negate();
+        calc.negate();
     }
 
     public void buttonSqrtClick(ActionEvent actionEvent) {
-        calculator.sqrt();
+        calc.sqrt();
+    }
+
+    public void buttonFractionOneClick(ActionEvent actionEvent) {
+        calc.fractionOne();
+    }
+
+    public void buttonPercentClick(ActionEvent actionEvent) {
+        calc.percent();
+    }
+
+    public void buttonOperatorClick(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        String operator = button.getText();
+        calc.operator(operator);
+    }
+
+    public void buttonEnterClick(ActionEvent actionEvent) {
+        calc.enter();
     }
 }
