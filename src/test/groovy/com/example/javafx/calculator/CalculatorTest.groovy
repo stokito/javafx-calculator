@@ -1,126 +1,118 @@
 package com.example.javafx.calculator
 
-import org.junit.Before
-import org.junit.Test
+import spock.lang.Specification
 
-class CalculatorTest {
+class CalculatorTest extends Specification {
     private Calculator calc
     private Display display = new DisplayStub()
 
-    @Before
-    void setUp() {
+    void setup() {
         calc = new Calculator(display)
     }
 
-    @Test
     void getNumber() {
-        //given
+        given:
         display.displayNumber = "0"
-        //when
+        when:
         double number = calc.getNumber()
-        //then
-        assert number == 0D
+        then:
+        number == 0D
     }
 
-    @Test
     void setNumber() {
-        // given
+        given:
         double number = 42D
-        // when
+        when:
         calc.number = number
-        // then
-        assert display.displayNumber == "42.0"
+        then:
+        display.displayNumber == "42.0"
     }
 
-    @Test
     void digit() {
+        given:
         assert display.displayNumber == "0"
+        when:
         calc.digit("1")
-        assert display.displayNumber == "1"
+        then:
+        display.displayNumber == "1"
+        when:
         calc.digit("2")
-        assert display.displayNumber == "12"
+        then:
+        display.displayNumber == "12"
     }
 
-    @Test
     void clear() {
-        // given
+        given:
         calc.digit("1")
         calc.operator("+")
         calc.digit("3")
         calc.enter()
-        // when
+        when:
         calc.clear()
-        // then
-        assert !calc.lastButtonWasDigit
-        assert calc.number == 0D
-        assert calc.a == 0D
-        assert calc.b == 0D
-        assert calc.operator == "+"
+        then:
+        !calc.lastButtonWasDigit
+        calc.number == 0D
+        calc.a == 0D
+        calc.b == 0D
+        calc.operator == "+"
     }
 
-    @Test
     void negate() {
-        // given
+        given:
         calc.digit("1")
-        // when
+        when:
         calc.negate()
-        // then
-        assert calc.number == -1D
+        then:
+        calc.number == -1D
     }
 
-    @Test
     void sqrt() {
-        // given
+        given:
         calc.digit("4")
-        // when
+        when:
         calc.sqrt()
-        // then
-        assert calc.number == 2D
+        then:
+        calc.number == 2D
     }
 
-    @Test
     void comma() {
-        // given
+        given:
         assert display.displayNumber == "0"
-        //when
+        when:
         calc.comma()
-        // then
-        assert display.displayNumber == "0,"
+        then:
+        display.displayNumber == "0,"
     }
 
-    @Test
     void commaMayBeUsedOnlyOnce() {
-        // given
+        given:
         display.displayNumber = "0,3"
-        //when
+        when:
         calc.comma()
-        // then
-        assert display.displayNumber == "0,3"
+        then:
+        display.displayNumber == "0,3"
     }
 
-    @Test
     void fractionOne() {
-        //given
+        given:
         calc.digit("4")
-        // when
+        when:
         calc.fractionOne()
-        // then
-        assert calc.number == 0.25D
+        then:
+        calc.number == 0.25D
     }
 
-    @Test
     void percent() {
-        // when
+        when:
         calc.digit("6")
         calc.operator("+")
         calc.digit("50")
         calc.percent()
-        // then
-        assert calc.number == 9D
+        then:
+        calc.number == 9D
     }
 
 
-    @Test
     void operator() {
         calc.digit("2")
         assertState(2D, 0D, 0D, "+", true)
@@ -140,23 +132,27 @@ class CalculatorTest {
         assertState(7D, 8D, 1D, "-", false)
     }
 
-    @Test
     void operatorSetLastButtonWasDigitFalse() {
+        given:
         calc.digit("2")
+        when:
         calc.operator("+")
-        assert !calc.lastButtonWasDigit
+        then:
+        !calc.lastButtonWasDigit
     }
 
-    @Test
     void operatorWasAfterOperator() {
+        when:
         calc.digit("2")
         calc.operator("+")
+        then:
         assertState(2D, 0D, 0D, "+", false)
+        when:
         calc.operator("-")
+        then:
         assertState(2D, 0D, 0D, "-", false)
     }
 
-    @Test
     void enter() {
         calc.digit("2")
         calc.operator("+")
