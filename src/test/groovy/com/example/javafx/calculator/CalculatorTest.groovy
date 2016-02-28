@@ -15,7 +15,7 @@ class CalculatorTest {
     @Test
     void getNumber() {
         //given
-        display.setDisplayNumber("0")
+        display.displayNumber = "0"
         //when
         double number = calc.getNumber()
         //then
@@ -27,18 +27,18 @@ class CalculatorTest {
         // given
         double number = 42D
         // when
-        calc.setNumber(number)
+        calc.number = number
         // then
-        assert display.getDisplayNumber() == "42.0"
+        assert display.displayNumber == "42.0"
     }
 
     @Test
     void digit() {
-        assert display.getDisplayNumber() == "0"
+        assert display.displayNumber == "0"
         calc.digit("1")
-        assert display.getDisplayNumber() == "1"
+        assert display.displayNumber == "1"
         calc.digit("2")
-        assert display.getDisplayNumber() == "12"
+        assert display.displayNumber == "12"
     }
 
     @Test
@@ -51,11 +51,11 @@ class CalculatorTest {
         // when
         calc.clear()
         // then
-        assert !calc.isLastButtonWasDigit()
-        assert calc.getNumber() == 0D
-        assert calc.getA() == 0D
-        assert calc.getB() == 0D
-        assert calc.getOperator() == "+"
+        assert !calc.lastButtonWasDigit
+        assert calc.number == 0D
+        assert calc.a == 0D
+        assert calc.b == 0D
+        assert calc.operator == "+"
     }
 
     @Test
@@ -65,7 +65,7 @@ class CalculatorTest {
         // when
         calc.negate()
         // then
-        assert calc.getNumber() == -1D
+        assert calc.number == -1D
     }
 
     @Test
@@ -75,27 +75,27 @@ class CalculatorTest {
         // when
         calc.sqrt()
         // then
-        assert calc.getNumber() == 2D
+        assert calc.number == 2D
     }
 
     @Test
     void comma() {
         // given
-        assert display.getDisplayNumber() == "0"
+        assert display.displayNumber == "0"
         //when
         calc.comma()
         // then
-        assert display.getDisplayNumber() == "0,"
+        assert display.displayNumber == "0,"
     }
 
     @Test
     void commaMayBeUsedOnlyOnce() {
         // given
-        display.setDisplayNumber("0,3")
+        display.displayNumber = "0,3"
         //when
         calc.comma()
         // then
-        assert display.getDisplayNumber() == "0,3"
+        assert display.displayNumber == "0,3"
     }
 
     @Test
@@ -105,7 +105,7 @@ class CalculatorTest {
         // when
         calc.fractionOne()
         // then
-        assert calc.getNumber() == 0.25D
+        assert calc.number == 0.25D
     }
 
     @Test
@@ -116,7 +116,7 @@ class CalculatorTest {
         calc.digit("50")
         calc.percent()
         // then
-        assert calc.getNumber() == 9D
+        assert calc.number == 9D
     }
 
 
@@ -144,7 +144,7 @@ class CalculatorTest {
     void operatorSetLastButtonWasDigitFalse() {
         calc.digit("2")
         calc.operator("+")
-        assert !calc.isLastButtonWasDigit()
+        assert !calc.lastButtonWasDigit
     }
 
     @Test
@@ -170,11 +170,11 @@ class CalculatorTest {
     }
 
     private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
-        assert calc.getA() == a
-        assert calc.getB() == b
-        assert calc.getNumber() == number
-        assert calc.getOperator() == operator
-        assert calc.isLastButtonWasDigit() == lastButtonWasDigit
+        assert calc.a == a
+        assert calc.b == b
+        assert calc.number == number
+        assert calc.operator == operator
+        assert calc.lastButtonWasDigit == lastButtonWasDigit
     }
 
     private static class DisplayStub implements Display {
