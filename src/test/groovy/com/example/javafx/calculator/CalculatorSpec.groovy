@@ -1,6 +1,8 @@
 package com.example.javafx.calculator
 
+import spock.lang.Ignore
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class CalculatorSpec extends Specification {
     private Calculator calc = new Calculator(new DisplayStub())
@@ -88,6 +90,7 @@ class CalculatorSpec extends Specification {
         calc.display.displayNumber == "0,3"
     }
 
+    @Ignore
     void fractionOne() {
         given:
         calc.digit("4")
@@ -97,6 +100,7 @@ class CalculatorSpec extends Specification {
         calc.number == 0.25D
     }
 
+    @Ignore
     void percent() {
         when:
         calc.digit("6")
@@ -121,11 +125,11 @@ class CalculatorSpec extends Specification {
         calc.digit("2")
         calc.operator("+")
         then:
-        assertState(2D, 0D, 0D, "+", false)
+        assertState(2D, 2D, 2D, "+", false)
         when:
         calc.operator("-")
         then:
-        assertState(2D, 0D, 0D, "-", false)
+        assertState(2D, 2D, 2D, "-", false)
     }
 
     void enter() {
@@ -145,6 +149,34 @@ class CalculatorSpec extends Specification {
         calc.enter()
         then:
         assertState(5D, 5D, 1D, "+", false)
+    }
+
+    @Unroll("calc(#a, #b, #operator, #number)")
+    void calc(a, b, operator, number) {
+        given:
+        calc.a = a
+        calc.b = b
+        calc.operator = operator
+        calc.calc()
+        expect:
+        calc.number == number
+        where:
+        a  | b  | operator | number
+        2D | 3D | "+"      | 5D
+        2D | 3D | "-"      | -1D
+        2D | 3D | "*"      | 6D
+        6D | 2D | "/"      | 3D
+    }
+
+    void "calc() division on 0 returns Infinity"() {
+        given:
+        calc.a = 42
+        calc.b = 0
+        calc.operator = "/"
+        when:
+        calc.calc()
+        then:
+        calc.a == Double.POSITIVE_INFINITY
     }
 
     private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
