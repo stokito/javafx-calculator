@@ -1,6 +1,7 @@
 package com.example.javafx.calculator
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class CalculatorTest extends Specification {
     private Calculator calc
@@ -113,23 +114,32 @@ class CalculatorTest extends Specification {
     }
 
 
-    void operator() {
-        calc.digit("2")
-        assertState(2D, 0D, 0D, "+", true)
-        calc.operator("+")
-        assertState(2D, 2D, 0D, "+", false)
-        calc.digit("3")
-        assertState(3D, 2D, 0D, "+", true)
-        calc.operator("+")
-        assertState(5D, 2D, 3D, "+", false)
-        calc.digit("3")
-        assertState(3D, 5D, 3D, "+", true)
-        calc.operator("-")
-        assertState(8D, 5D, 3D, "-", false)
-        calc.digit("1")
-        assertState(1D, 5D, 3D, "-", true)
-        calc.enter()
-        assertState(7D, 8D, 1D, "-", false)
+    @Unroll("#digit, #operator, #a, #b, #number, #opField, #lastButtonWasDigit")
+    void operator(String digit, String operator, a, b, number, opField, lastButtonWasDigit) {
+        given:
+        if (digit) {
+            calc.digit(digit)
+        } else if (operator) {
+            calc.operator(operator)
+        } else {
+            calc.enter()
+        }
+        expect:
+        calc.a == a
+        calc.b == b
+        calc.number == number
+        calc.operator == opField
+        calc.lastButtonWasDigit == lastButtonWasDigit
+        where:
+        digit | operator | a  | b  | number | opField | lastButtonWasDigit
+        "2"   | null     | 2D | 0D | 0D     | "+"     | true
+        null  | "+"      | 2D | 2D | 0D     | "+"     | false
+        "3"   | null     | 3D | 2D | 0D     | "+"     | true
+        null  | "+"      | 5D | 2D | 3D     | "+"     | false
+        "3"   | null     | 3D | 5D | 3D     | "+"     | true
+        null  | "-"      | 8D | 5D | 3D     | "-"     | false
+        "1"   | null     | 1D | 5D | 3D     | "-"     | true
+        null  | null     | 7D | 8D | 1D     | "-"     | false
     }
 
     void operatorSetLastButtonWasDigitFalse() {
@@ -153,6 +163,7 @@ class CalculatorTest extends Specification {
         assertState(2D, 0D, 0D, "-", false)
     }
 
+    //TODO make this test data driven as test for operator
     void enter() {
         calc.digit("2")
         calc.operator("+")
