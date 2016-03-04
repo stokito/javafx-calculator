@@ -96,16 +96,21 @@ public class Calculator {
     }
 
     private void calc() {
-        if (this.operator.equals("+")) {
-            setNumber(a + b);
-        } else if (this.operator.equals("-")) {
-            setNumber(a - b);
-        } else if (this.operator.equals("*")) {
-            setNumber(a * b);
-        } else if (this.operator.equals("/")) {
-            setNumber(a / b);
-        } else {
-            throw new IllegalStateException("Unknown operator " + this.operator);
+        switch (operator) {
+            case "+":
+                setNumber(a + b);
+                break;
+            case "-":
+                setNumber(a - b);
+                break;
+            case "*":
+                setNumber(a * b);
+                break;
+            case "/":
+                setNumber(a / b);
+                break;
+            default:
+                throw new IllegalStateException("Unknown operator " + operator);
         }
         a = getNumber();
         lastButtonWasDigit = false;
