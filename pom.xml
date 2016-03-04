@@ -10,10 +10,18 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk>1.8</jdk>
     </properties>
 
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${jdk}</source>
+                    <target>${jdk}</target>
+                </configuration>
+            </plugin>
             <!-- Mandatory plugins for using Spock -->
             <plugin>
                 <!-- The gmavenplus plugin is used to compile Groovy code. To learn more about this plugin,
