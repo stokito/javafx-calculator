@@ -30,7 +30,7 @@ public class Calculator {
     }
 
     public double getNumber() {
-        return Double.parseDouble(display.getDisplayNumber());
+        return Double.parseDouble(display.getDisplayNumber().replace(',', '.'));
     }
 
     public void setNumber(double number) {

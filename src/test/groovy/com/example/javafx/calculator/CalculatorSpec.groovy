@@ -16,6 +16,15 @@ class CalculatorSpec extends Specification {
         number == 0D
     }
 
+    void getNumberDecimalSeparator() {
+        given:
+        calc.display.displayNumber = "0,1"
+        when:
+        double number = calc.getNumber()
+        then:
+        number == 0.1D
+    }
+
     void setNumber() {
         given:
         double number = 42D
