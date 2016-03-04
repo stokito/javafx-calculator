@@ -1,23 +1,27 @@
 package com.example.javafx.calculator;
 
+import java.math.BigDecimal;
+
+import static java.math.BigDecimal.ZERO;
+
 public class Calculator {
     private final Display display;
 
     private boolean lastButtonWasDigit;
     private String operator = "+";
 
-    private double a;
-    private double b;
+    private BigDecimal a = ZERO;
+    private BigDecimal b = ZERO;
 
     public Calculator(Display display) {
         this.display = display;
     }
 
-    public double getA() {
+    public BigDecimal getA() {
         return a;
     }
 
-    public double getB() {
+    public BigDecimal getB() {
         return b;
     }
 
@@ -29,11 +33,11 @@ public class Calculator {
         return operator;
     }
 
-    public double getNumber() {
-        return Double.parseDouble(display.getDisplayNumber().replace(',', '.'));
+    public BigDecimal getNumber() {
+        return new BigDecimal(display.getDisplayNumber().replace(',', '.'));
     }
 
-    public void setNumber(double number) {
+    public void setNumber(BigDecimal number) {
         display.setDisplayNumber(String.valueOf(number));
     }
 
@@ -47,22 +51,22 @@ public class Calculator {
     }
 
     public void clear() {
-        setNumber(0);
+        setNumber(ZERO);
         lastButtonWasDigit = false;
         operator  = "+";
-        a = 0D;
-        b = 0D;
+        a = ZERO;
+        b = ZERO;
     }
 
     public void negate() {
-        double newNumber = getNumber() * -1;
+        BigDecimal newNumber = getNumber().negate();
         setNumber(newNumber);
     }
 
 
     public void sqrt() {
-        double newNumber = Math.sqrt(getNumber());
-        setNumber(newNumber);
+        double newNumber = Math.sqrt(getNumber().doubleValue());
+        setNumber(new BigDecimal(newNumber));
     }
 
     public void comma() {
@@ -98,16 +102,16 @@ public class Calculator {
     private void calc() {
         switch (operator) {
             case "+":
-                setNumber(a + b);
+                setNumber(a.add(b));
                 break;
             case "-":
-                setNumber(a - b);
+                setNumber(a.subtract(b));
                 break;
             case "*":
-                setNumber(a * b);
+                setNumber(a.multiply(b));
                 break;
             case "/":
-                setNumber(a / b);
+                setNumber(a.divide(b));
                 break;
             default:
                 throw new IllegalStateException("Unknown operator " + operator);

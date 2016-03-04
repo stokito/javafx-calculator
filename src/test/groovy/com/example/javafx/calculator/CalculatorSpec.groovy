@@ -31,7 +31,7 @@ class CalculatorSpec extends Specification {
         when:
         calc.number = number
         then:
-        calc.display.displayNumber == "42.0"
+        calc.display.displayNumber == "42"
     }
 
     void digit() {
@@ -177,7 +177,7 @@ class CalculatorSpec extends Specification {
         6D | 2D | "/"      | 3D
     }
 
-    void "calc() division on 0 returns Infinity"() {
+    void "calc() division on 0 throws ArithmeticException"() {
         given:
         calc.a = 42
         calc.b = 0
@@ -185,7 +185,7 @@ class CalculatorSpec extends Specification {
         when:
         calc.calc()
         then:
-        calc.a == Double.POSITIVE_INFINITY
+        thrown(ArithmeticException)
     }
 
     private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
