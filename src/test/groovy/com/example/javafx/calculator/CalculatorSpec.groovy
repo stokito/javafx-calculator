@@ -100,13 +100,23 @@ class CalculatorSpec extends Specification {
         calc.display.displayNumber == "0,"
     }
 
-    void commaMayBeUsedOnlyOnce() {
+    void "comma() may be used only once"() {
         given:
         calc.display.displayNumber = "0,3"
         when:
         calc.comma()
         then:
         calc.display.displayNumber == "0,3"
+    }
+
+    @Ignore
+    void "comma() works with both decimal separators"() {
+        given:
+        calc.display.displayNumber = "0.3"
+        when:
+        calc.comma()
+        then:
+        calc.display.displayNumber == "0.3"
     }
 
     @Ignore
