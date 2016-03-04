@@ -11,27 +11,37 @@ class CalculatorSpec extends Specification {
         given:
         calc.display.displayNumber = "0"
         when:
-        double number = calc.getNumber()
+        def number = calc.getNumber()
         then:
-        number == 0D
+        number == 0.0G
     }
 
     void getNumberDecimalSeparator() {
         given:
         calc.display.displayNumber = "0,1"
         when:
-        double number = calc.getNumber()
+        def number = calc.getNumber()
         then:
-        number == 0.1D
+        number == 0.1G
     }
 
+    @Ignore
     void setNumber() {
         given:
-        double number = 42D
+        def number = 42.0G
         when:
         calc.number = number
         then:
         calc.display.displayNumber == "42"
+    }
+
+    void setNumberScaleRounding() {
+        given:
+        def number = 42.5G
+        when:
+        calc.number = number
+        then:
+        calc.display.displayNumber == "42.5"
     }
 
     void digit() {
@@ -57,9 +67,9 @@ class CalculatorSpec extends Specification {
         calc.clear()
         then:
         !calc.lastButtonWasDigit
-        calc.number == 0D
-        calc.a == 0D
-        calc.b == 0D
+        calc.number == 0.0G
+        calc.a == 0.0G
+        calc.b == 0.0G
         calc.operator == "+"
     }
 
@@ -69,7 +79,7 @@ class CalculatorSpec extends Specification {
         when:
         calc.negate()
         then:
-        calc.number == -1D
+        calc.number == -1.0G
     }
 
     void sqrt() {
@@ -78,7 +88,7 @@ class CalculatorSpec extends Specification {
         when:
         calc.sqrt()
         then:
-        calc.number == 2D
+        calc.number == 2.0G
     }
 
     void comma() {
@@ -106,7 +116,7 @@ class CalculatorSpec extends Specification {
         when:
         calc.fractionOne()
         then:
-        calc.number == 0.25D
+        calc.number == 0.25G
     }
 
     @Ignore
@@ -117,7 +127,7 @@ class CalculatorSpec extends Specification {
         calc.digit("50")
         calc.percent()
         then:
-        calc.number == 9D
+        calc.number == 9.0G
     }
 
     void operatorSetLastButtonWasDigitFalse() {
@@ -134,11 +144,11 @@ class CalculatorSpec extends Specification {
         calc.digit("2")
         calc.operator("+")
         then:
-        assertState(2D, 2D, 2D, "+", false)
+        assertState(2.0G, 2.0G, 2.0G, "+", false)
         when:
         calc.operator("-")
         then:
-        assertState(2D, 2D, 2D, "-", false)
+        assertState(2.0G, 2.0G, 2.0G, "-", false)
     }
 
     void enter() {
@@ -149,15 +159,15 @@ class CalculatorSpec extends Specification {
         when:
         calc.enter()
         then:
-        assertState(3D, 3D, 1D, "+", false)
+        assertState(3.0G, 3.0G, 1.0G, "+", false)
         when:
         calc.enter()
         then:
-        assertState(4D, 4D, 1D, "+", false)
+        assertState(4.0G, 4.0G, 1.0G, "+", false)
         when:
         calc.enter()
         then:
-        assertState(5D, 5D, 1D, "+", false)
+        assertState(5.0G, 5.0G, 1.0G, "+", false)
     }
 
     @Unroll("calc(#a, #b, #operator, #number)")
@@ -170,11 +180,11 @@ class CalculatorSpec extends Specification {
         expect:
         calc.number == number
         where:
-        a  | b  | operator | number
-        2D | 3D | "+"      | 5D
-        2D | 3D | "-"      | -1D
-        2D | 3D | "*"      | 6D
-        6D | 2D | "/"      | 3D
+        a    | b    | operator | number
+        2.0G | 3.0G | "+"      | 5.0G
+        2.0G | 3.0G | "-"      | -1.0G
+        2.0G | 3.0G | "*"      | 6.0G
+        6.0G | 2.0G | "/"      | 3.0G
     }
 
     void "calc() division on 0 throws ArithmeticException"() {
@@ -188,7 +198,7 @@ class CalculatorSpec extends Specification {
         thrown(ArithmeticException)
     }
 
-    private void assertState(double number, double a, double b, String operator, boolean lastButtonWasDigit) {
+    private void assertState(number, a, b, String operator, boolean lastButtonWasDigit) {
         assert calc.a == a
         assert calc.b == b
         assert calc.number == number

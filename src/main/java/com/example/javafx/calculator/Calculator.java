@@ -38,7 +38,7 @@ public class Calculator {
     }
 
     public void setNumber(BigDecimal number) {
-        display.setDisplayNumber(String.valueOf(number));
+        display.setDisplayNumber(number.toString());
     }
 
     public void digit(String digit) {
@@ -53,7 +53,7 @@ public class Calculator {
     public void clear() {
         setNumber(ZERO);
         lastButtonWasDigit = false;
-        operator  = "+";
+        operator = "+";
         a = ZERO;
         b = ZERO;
     }
@@ -85,7 +85,7 @@ public class Calculator {
     }
 
     public void operator(String operator) {
-        if (lastButtonWasDigit){
+        if (lastButtonWasDigit) {
             b = getNumber();
             calc();
         }

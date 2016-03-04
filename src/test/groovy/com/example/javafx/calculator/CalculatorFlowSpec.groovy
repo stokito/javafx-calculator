@@ -25,15 +25,15 @@ class CalculatorFlowSpec extends Specification {
         calc.operator == opField
         calc.lastButtonWasDigit == lastButtonWasDigit
         where:
-        digit | operator | number | a  | b  | opField | lastButtonWasDigit
-        "2"   | null     | 2D     | 0D | 0D | "+"     | true
-        null  | "+"      | 2D     | 2D | 2D | "+"     | false
-        "3"   | null     | 3D     | 2D | 2D | "+"     | true
-        null  | "+"      | 5D     | 5D | 3D | "+"     | false
-        "3"   | null     | 3D     | 5D | 3D | "+"     | true
-        null  | "-"      | 8D     | 8D | 3D | "-"     | false
-        "1"   | null     | 1D     | 8D | 3D | "-"     | true
-        null  | null     | 7D     | 7D | 1D | "-"     | false
+        digit | operator | number | a    | b    | opField | lastButtonWasDigit
+        "2"   | null     | 2.0G   | 0.0G | 0.0G | "+"     | true
+        null  | "+"      | 2.0G   | 2.0G | 2.0G | "+"     | false
+        "3"   | null     | 3.0G   | 2.0G | 2.0G | "+"     | true
+        null  | "+"      | 5.0G   | 5.0G | 3.0G | "+"     | false
+        "3"   | null     | 3.0G   | 5.0G | 3.0G | "+"     | true
+        null  | "-"      | 8.0G   | 8.0G | 3.0G | "-"     | false
+        "1"   | null     | 1.0G   | 8.0G | 3.0G | "-"     | true
+        null  | null     | 7.0G   | 7.0G | 1.0G | "-"     | false
     }
 
 }
