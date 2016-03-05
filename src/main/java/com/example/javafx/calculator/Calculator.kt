@@ -1,123 +1,93 @@
-package com.example.javafx.calculator;
+package com.example.javafx.calculator
 
-import java.math.BigDecimal;
+import java.math.BigDecimal
 
-import static java.math.BigDecimal.ZERO;
+import java.math.BigDecimal.ZERO
 
-public class Calculator {
-    private final Display display;
+class Calculator(private val display: Display) {
 
-    private boolean lastButtonWasDigit;
-    private String operator = "+";
+    var isLastButtonWasDigit: Boolean = false
+    var operator = "+"
 
-    private BigDecimal a = ZERO;
-    private BigDecimal b = ZERO;
+    var a = ZERO
+    var b = ZERO
 
-    public Calculator(Display display) {
-        this.display = display;
-    }
+    var number: BigDecimal
+        get() {
+            return BigDecimal(display.displayNumber.replace(',', '.'))
+        }
+        set(number) {
+            display.displayNumber = number.toString()
+        }
 
-    public BigDecimal getA() {
-        return a;
-    }
-
-    public BigDecimal getB() {
-        return b;
-    }
-
-    public boolean isLastButtonWasDigit() {
-        return lastButtonWasDigit;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public BigDecimal getNumber() {
-        return new BigDecimal(display.getDisplayNumber().replace(',', '.'));
-    }
-
-    public void setNumber(BigDecimal number) {
-        display.setDisplayNumber(number.toString());
-    }
-
-    public void digit(String digit) {
-        if (lastButtonWasDigit) {
-            display.setDisplayNumber(display.getDisplayNumber() + digit);
+    fun digit(digit: String) {
+        if (isLastButtonWasDigit) {
+            display.displayNumber = display.displayNumber + digit
         } else {
-            display.setDisplayNumber(digit);
+            display.displayNumber = digit
         }
-        lastButtonWasDigit = true;
+        isLastButtonWasDigit = true
     }
 
-    public void clear() {
-        setNumber(ZERO);
-        lastButtonWasDigit = false;
-        operator = "+";
-        a = ZERO;
-        b = ZERO;
+    fun clear() {
+        number = ZERO
+        isLastButtonWasDigit = false
+        operator = "+"
+        a = ZERO
+        b = ZERO
     }
 
-    public void negate() {
-        BigDecimal newNumber = getNumber().negate();
-        setNumber(newNumber);
+    fun negate() {
+        val newNumber = number.negate()
+        number = newNumber
     }
 
 
-    public void sqrt() {
-        double newNumber = Math.sqrt(getNumber().doubleValue());
-        setNumber(new BigDecimal(newNumber));
+    fun sqrt() {
+        val newNumber = Math.sqrt(number.toDouble())
+        number = BigDecimal(newNumber)
     }
 
-    public void comma() {
-        if (!display.getDisplayNumber().contains(",")) {
-            display.setDisplayNumber(display.getDisplayNumber() + ",");
+    fun comma() {
+        if (!display.displayNumber.contains(",")) {
+            display.displayNumber = display.displayNumber + ","
         }
-        lastButtonWasDigit = true;
+        isLastButtonWasDigit = true
     }
 
-    public void fractionOne() {
+    fun fractionOne() {
         //TODO to implement number = 1 / number
     }
 
-    public void percent() {
+    fun percent() {
         //TODO implement me
     }
 
-    public void operator(String operator) {
-        if (lastButtonWasDigit) {
-            b = getNumber();
-            calc();
+    fun operator(operator: String) {
+        if (isLastButtonWasDigit) {
+            b = number
+            calc()
         }
-        this.operator = operator;
+        this.operator = operator
     }
 
-    public void enter() {
-        if (lastButtonWasDigit) {
-            b = getNumber();
+    fun enter() {
+        if (isLastButtonWasDigit) {
+            b = number
         }
-        calc();
+        calc()
     }
 
-    private void calc() {
-        switch (operator) {
-            case "+":
-                setNumber(a.add(b));
-                break;
-            case "-":
-                setNumber(a.subtract(b));
-                break;
-            case "*":
-                setNumber(a.multiply(b));
-                break;
-            case "/":
-                setNumber(a.divide(b));
-                break;
-            default:
-                throw new IllegalStateException("Unknown operator " + operator);
+    private fun calc() {
+        when (operator) {
+            "+" -> number = a.add(b)
+            "-" -> number = a.subtract(b)
+            "*" -> number = a.multiply(b)
+            "/" -> number = a.divide(b)
+            else -> throw IllegalStateException("Unknown operator " + operator)
         }
-        a = getNumber();
-        lastButtonWasDigit = false;
+        a = number
+        isLastButtonWasDigit = false
     }
 
 }
