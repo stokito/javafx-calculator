@@ -1,72 +1,68 @@
-package com.example.javafx.calculator;
+package com.example.javafx.calculator
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.event.ActionEvent
+import javafx.fxml.FXML
+import javafx.scene.control.Button
+import javafx.scene.control.TextField
 
-public class CalculatorController implements Display {
+class CalculatorController : Display {
     @FXML
-    private TextField display;
+    lateinit var display: TextField
 
-    private Calculator calc;
+    private val calc: Calculator
 
-    public CalculatorController() {
-        calc = new Calculator(this);
+    init {
+        calc = Calculator(this)
     }
 
-    @Override
-    public String getDisplayNumber() {
-        return display.getText();
+    override var displayNumber: String
+        get() = display.text
+        set(displayNumber) {
+            display.text = displayNumber
+        }
+
+    fun buttonBackSpaceClick(actionEvent: ActionEvent) {
+        println("BackSpace clicked")
     }
 
-    @Override
-    public void setDisplayNumber(String displayNumber) {
-        display.setText(displayNumber);
+    fun buttonDigitClick(actionEvent: ActionEvent) {
+        val button = actionEvent.source as Button
+        val digit = button.text
+        calc.digit(digit)
     }
 
-    public void buttonBackSpaceClick(ActionEvent actionEvent) {
-        System.out.println("BackSpace clicked");
+    fun buttonClearClick(actionEvent: ActionEvent) {
+        calc.clear()
     }
 
-    public void buttonDigitClick(ActionEvent actionEvent) {
-        Button button = (Button) actionEvent.getSource();
-        String digit = button.getText();
-        calc.digit(digit);
-    }
-
-    public void buttonClearClick(ActionEvent actionEvent) {
-        calc.clear();
-    }
-
-    public void buttonCommaClick(ActionEvent actionEvent) {
-        calc.comma();
+    fun buttonCommaClick(actionEvent: ActionEvent) {
+        calc.comma()
     }
 
 
-    public void buttonNegateClick(ActionEvent actionEvent) {
-        calc.negate();
+    fun buttonNegateClick(actionEvent: ActionEvent) {
+        calc.negate()
     }
 
-    public void buttonSqrtClick(ActionEvent actionEvent) {
-        calc.sqrt();
+    fun buttonSqrtClick(actionEvent: ActionEvent) {
+        calc.sqrt()
     }
 
-    public void buttonFractionOneClick(ActionEvent actionEvent) {
-        calc.fractionOne();
+    fun buttonFractionOneClick(actionEvent: ActionEvent) {
+        calc.fractionOne()
     }
 
-    public void buttonPercentClick(ActionEvent actionEvent) {
-        calc.percent();
+    fun buttonPercentClick(actionEvent: ActionEvent) {
+        calc.percent()
     }
 
-    public void buttonOperatorClick(ActionEvent actionEvent) {
-        Button button = (Button) actionEvent.getSource();
-        String operator = button.getText();
-        calc.operator(operator);
+    fun buttonOperatorClick(actionEvent: ActionEvent) {
+        val button = actionEvent.source as Button
+        val operator = button.text
+        calc.operator(operator)
     }
 
-    public void buttonEnterClick(ActionEvent actionEvent) {
-        calc.enter();
+    fun buttonEnterClick(actionEvent: ActionEvent) {
+        calc.enter()
     }
 }

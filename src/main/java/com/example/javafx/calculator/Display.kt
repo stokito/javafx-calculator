@@ -1,7 +1,5 @@
-package com.example.javafx.calculator;
+package com.example.javafx.calculator
 
-public interface Display {
-    String getDisplayNumber();
-
-    void setDisplayNumber(String displayNumber);
+interface Display {
+    var displayNumber: String
 }

@@ -1,23 +1,25 @@
-package com.example.javafx.calculator;
+package com.example.javafx.calculator
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.application.Application
+import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.stage.Stage
 
-public class Main extends Application {
+class Main : Application() {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/calculator.fxml"));
-        primaryStage.setTitle("Calculator");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    @Throws(Exception::class)
+    override fun start(primaryStage: Stage) {
+        val root = FXMLLoader.load<Parent>(javaClass.getResource("/calculator.fxml"))
+        primaryStage.title = "Calculator"
+        primaryStage.scene = Scene(root, 300.0, 275.0)
+        primaryStage.show()
     }
 
+    companion object {
 
-    public static void main(String[] args) {
-        launch(args);
+        @JvmStatic fun main(args: Array<String>) {
+            Application.launch(Main::class.java, *args)
+        }
     }
 }
