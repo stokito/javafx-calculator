@@ -49,6 +49,9 @@
                         <include>**/Test*.java</include>
                         <include>**/*Test.java</include>
                         <include>**/*TestCase.java</include>
+                        <include>**/Test*.kt</include>
+                        <include>**/*Test.kt</include>
+                        <include>**/*TestCase.kt</include>
                         <include>**/*Spec.java</include>
                         <include>**/*Spec.groovy</include>
                     </includes>
@@ -68,6 +71,7 @@
                         <configuration>
                             <sourceDirs>
                                 <source>src/main/java</source>
+                                <source>src/main/kotlin</source>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -79,7 +83,8 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>src/test/groovy</source>
+                                <source>src/test/java</source>
+                                <source>src/test/kotlin</source>
                             </sourceDirs>
                         </configuration>
                     </execution>
