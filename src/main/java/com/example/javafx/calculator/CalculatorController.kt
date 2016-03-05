@@ -65,4 +65,8 @@ class CalculatorController : Display {
     fun buttonEnterClick(actionEvent: ActionEvent) {
         calc.enter()
     }
+
+    fun buttonClearEnteredClick(actionEvent: ActionEvent) {
+        calc.clearEntered()
+    }
 }

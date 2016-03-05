@@ -12,7 +12,7 @@
   <children>
     <TextField fx:id="display" maxHeight="Infinity" maxWidth="Infinity" prefWidth="200.0" text="0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="0" />
     <Button fx:id="backSpace" maxHeight="Infinity" maxWidth="Infinity" text="⌫" GridPane.columnIndex="0" GridPane.rowIndex="1" onAction="#buttonBackSpaceClick" />
-    <Button fx:id="clearEntered" maxHeight="Infinity" maxWidth="Infinity" text="" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Button fx:id="clearEntered" maxHeight="Infinity" maxWidth="Infinity" text="CE" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#buttonClearEnteredClick" />
     <Button fx:id="clear" maxHeight="Infinity" maxWidth="Infinity" text="C" GridPane.columnIndex="2" GridPane.rowIndex="1" onAction="#buttonClearClick" />
     <Button fx:id="buttonNegate" maxHeight="Infinity" maxWidth="Infinity" text="±" GridPane.columnIndex="3" GridPane.rowIndex="1" onAction="#buttonNegateClick" />
     <Button fx:id="buttonSqrt" maxHeight="Infinity" maxWidth="Infinity" text="√" GridPane.columnIndex="4" GridPane.rowIndex="1" onAction="#buttonSqrtClick" />

@@ -90,4 +90,8 @@ class Calculator(private val display: Display) {
         isLastButtonWasDigit = false
     }
 
+    fun clearEntered() {
+        number = ZERO
+    }
+
 }

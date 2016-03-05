@@ -73,6 +73,17 @@ class CalculatorSpec extends Specification {
         calc.operator == "+"
     }
 
+    def "clearEntered() removes last inputted number"(){
+        given:
+        calc.digit("1")
+        calc.digit("2")
+        when:
+        calc.clearEntered()
+        then:
+        calc.number == 0.0G
+        calc.display.displayNumber == "0"
+    }
+
     void negate() {
         given:
         calc.digit("1")
